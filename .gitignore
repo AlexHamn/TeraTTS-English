@@ -8,3 +8,6 @@ build/
 dist/
 RUTTS.egg-info
 model/
+
+venv1/
+TeraTTS.egg-info/
