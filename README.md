@@ -1,49 +1,49 @@
 # Russian TTS inference
-# Установка
-Вы можете установить пакет с помощью pip:
+# Installation
+You can install the package using pip:
 ```
 pip install TeraTTS
 ```
-Также вы можете установить используя Git:
+Alternatively, you can install it using Git:
 ```
 pip install -e git+https://github.com/Tera2Space/RUTTS#egg=TeraTTS
 ```
-# Ошибки
-1)Если на Windows у вас **ошибка при установке**,нужно просто **скачать Visual Studio [здесь](https://visualstudio.microsoft.com/ru/thank-you-downloading-visual-studio/?sku=Community&channel=Release&version=VS2022&source=VSLandingPage&cid=2030&passive=false)** и при установке выбрать галочку около **Разработка классических приложений на С++**
+# Errors
+1) If you encounter an **installation error** on Windows, simply **download Visual Studio [here](https://visualstudio.microsoft.com/ru/thank-you-downloading-visual-studio/?sku=Community&channel=Release&version=VS2022&source=VSLandingPage&cid=2030&passive=false)** and during installation, select the checkbox next to **C++ Desktop development**.
 
-2)Если **после установки не работает** что-то, **убедитесь что модуль скачан последней версии**(удалить и скачать) и **так же что названия моделей есть на** https://huggingface.co/TeraTTS
+2) If **something doesn't work after installation**, **make sure the module is downloaded in the latest version** (delete and download again) and **also make sure that the model names are available at** https://huggingface.co/TeraTTS.
 
-3)Если ничего не помогло **обратитесь за помощью в https://t.me/teraspace_chat**
-# Использование
+3) If nothing helps, **seek assistance at https://t.me/teraspace_chat**.
+# Usage
 
 ```python  
-text = "Привет, мир!"
+text = "Hello, world!"
 
 from TeraTTS import TTS
 
-# Опционально: Предобработка текста (улучшает качество)
+# Optional: Text preprocessing (improves quality)
 from ruaccent import RUAccent
 accentizer = RUAccent()
 
-# Загрузка моделей акцентуации и словарей
+# Loading accentuation models and dictionaries
 accentizer.load(omograph_model_size='turbo', use_dictionary=True)
 
-# Обработка текста с учетом ударений и буквы ё
+# Processing text with stress marks and the letter ё
 text = accentizer.process_all(text)
-print(f"Текст с ударениями и ё: {text}")
+print(f"Text with stress marks and ё: {text}")
 
 
-# Примечание: Вы можете найти все модели по адресу https://huggingface.co/TeraTTS, включая модель GLADOS
-tts = TTS("TeraTTS/natasha-g2p-vits", add_time_to_end=1.0, tokenizer_load_dict=True) # Вы можете настроить 'add_time_to_end' для продолжительности аудио, 'tokenizer_load_dict' можно отключить если используете RUAccent
+# Note: You can find all models at https://huggingface.co/TeraTTS, including the GLADOS model
+tts = TTS("TeraTTS/natasha-g2p-vits", add_time_to_end=1.0, tokenizer_load_dict=True) # You can adjust 'add_time_to_end' for audio duration, 'tokenizer_load_dict' can be disabled if using RUAccent
 
 
-# 'length_scale' можно использовать для замедления аудио для лучшего звучания (по умолчанию 1.1, указано здесь для примера)
-audio = tts(text, lenght_scale=1.1)  # Создать аудио. Можно добавить ударения, используя '+'
-tts.play_audio(audio)  # Воспроизвести созданное аудио
-tts.save_wav(audio, "./test.wav")  # Сохранить аудио в файл
+# 'length_scale' can be used to slow down the audio for better sound (default 1.1, specified here for example)
+audio = tts(text, length_scale=1.1)  # Create audio. You can add stress marks using '+'
+tts.play_audio(audio)  # Play the created audio
+tts.save_wav(audio, "./test.wav")  # Save the audio to a file
 
 
-# Создать аудио и сразу его воспроизвести
-tts(text, play=True, lenght_scale=1.1)
+# Create audio and play it immediately
+tts(text, play=True, length_scale=1.1)
 
 ```
