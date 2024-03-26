@@ -18,7 +18,7 @@ tts = TTS("TeraTTS/natasha-g2p-vits", add_time_to_end=1.0, tokenizer_load_dict=T
 # You can adjust 'add_time_to_end' for audio duration, 'tokenizer_load_dict' can be disabled if using RUAccent
 
 # 'length_scale' can be used to slow down the audio for better sound (default 1.1, specified here for example)
-audio = tts(text, lenght_scale=1.6)  
+audio = tts(text, lenght_scale=1.8)  
 # Create audio. You can add stress marks using '+'
 tts.play_audio(audio)  
 # Play the created audio
@@ -26,4 +26,4 @@ tts.save_wav(audio, "./test.wav")
 # Save the audio to a file
 
 # Create audio and play it immediately
-tts(text, play=True, lenght_scale=1.6)
+tts(text, play=True, lenght_scale=1.8)
