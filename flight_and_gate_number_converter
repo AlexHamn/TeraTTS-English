@@ -1,0 +1,54 @@
+from num2words import num2words
+import re
+import datetime
+from alphabet_very_important import english_to_russian
+
+
+def numbers_to_words(number):
+    number2word = {
+        '1': "один", '2': "два", '3': "три", '4': "четыре",
+        '5': "пять", '6': "шесть", '7': "семь", '8': "восемь",
+        '9': "девять", '0': "ноль"
+    }
+    return " ".join(map(lambda i: number2word[i], str(number)))
+
+
+def change_letters_to_russian(some_input):
+    result = ""
+    for char in some_input:
+        if char.lower() in english_to_russian:
+            result += english_to_russian[char.lower()]
+        else:
+            result += char
+    return result
+
+def replace_numbers_with_words(text):
+    # Find all numeric substrings in the text
+    numeric_substrings = re.findall(r'\d+', text)
+
+    # Replace each numeric substring with its word representation
+    for numeric_str in numeric_substrings:
+        numeric_value = int(numeric_str)
+        word_value = numbers_to_words(numeric_value)
+        text = text.replace(numeric_str, word_value)
+    return text
+
+
+def check_for_bad_symbols(user_input):
+    bad_symbols = ",./-" #We'll add more
+    for symbol in bad_symbols:
+        user_input = user_input.replace(symbol, " ")
+    return user_input
+
+
+time = datetime.datetime.now().time() #Test Value for now
+flight_number = " ".join(input("Please input your flight-number ").lower())
+flight_number = change_letters_to_russian(replace_numbers_with_words(flight_number))
+gate_number = num2words(input("Please input your gate number "))
+template_message_with_input = (f"Dear passengers flight {check_for_bad_symbols(flight_number)} has started boarding. "
+                               f"Please proceed to Gate {check_for_bad_symbols(gate_number)}. The boarding will last until {time}")
+
+# We'll have a lot more template messages. Template message variable is going to be a panda DataFrame,
+# from which we can pick what dataframe we want to use
+
+print(template_message_with_input)
