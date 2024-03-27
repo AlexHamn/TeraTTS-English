@@ -22,7 +22,7 @@ def change_letters_to_russian(some_input):
             result += char
     return result
 
-def replace_numbers_with_words(text):
+def replace_numbers_with_words(text): #for flight numbers
     # Find all numeric substrings in the text
     numeric_substrings = re.findall(r'\d+', text)
 
