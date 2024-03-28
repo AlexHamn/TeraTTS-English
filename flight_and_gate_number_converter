@@ -35,7 +35,7 @@ def replace_numbers_with_words(text): #for flight numbers
 
 
 def check_for_bad_symbols(user_input):
-    bad_symbols = ",./-" #We'll add more
+    bad_symbols = ",./- \n" #We'll add more
     for symbol in bad_symbols:
         user_input = user_input.replace(symbol, " ")
     return user_input
